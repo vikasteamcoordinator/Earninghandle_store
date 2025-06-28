@@ -78,11 +78,11 @@ const LimitedEdition = () => {
 
   return (
     <>
-      <div className="limitedProductSection">
+      <div className="limitedProductSection container">
         <h2>
           Limited <span>Edition</span>
         </h2>
-        <div className="limitedProductSlider">
+        <div className="limitedProductSlider container">
           <div className="swiper-button image-swiper-button-next">
             <IoIosArrowForward />
           </div>
@@ -106,7 +106,7 @@ const LimitedEdition = () => {
             modules={[Navigation, Autoplay]}
             breakpoints={{
               320: {
-                slidesPerView: 2,
+                slidesPerView: 1,
                 slidesPerGroup: 1,
                 spaceBetween: 14,
               },

@@ -22,6 +22,9 @@
 .productThumb img {
   width: 80px;
   height: 80px;
+  border-radius: 0.5em;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .productFullImg {
@@ -33,6 +36,8 @@
   height: 520px;
   pointer-events: none;
   background-color: #767676;
+  border-radius: 1em;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .buttonsGroup {
@@ -192,8 +197,9 @@
 }
 
 .sizeBtn button {
-  background-color: white;
-  border: 1px solid;
+  border: 0;
+  border-radius: 0.5em;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   padding: 5px 15px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -214,6 +220,8 @@
 .colorBtn button {
   background-color: white;
   border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgb(0, 0, 0);
   padding: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -225,12 +233,13 @@
   content: "";
   position: absolute;
   box-sizing: border-box;
-  border: 2px solid rgb(0, 0, 0);
+  border: 1px solid rgb(0, 0, 0);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
   border-radius: 50%;
-  width: calc(100% + 12px);
-  height: calc(100% + 12px);
-  left: -6px;
-  top: -6px;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  left: -4px;
+  top: -4px;
 }
 
 .productColor p {
@@ -249,15 +258,16 @@
 
 .productQuantity {
   display: flex;
-  border: 2px solid #e0e0e0;
+  border: 1px solid #e0e0e0;
   padding: 0 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5em;
 }
 
 .productQuantity button {
   background-color: white;
   border: none;
   padding: 10px;
-  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -272,6 +282,8 @@
 .productCartBtn button {
   padding: 20px 110px;
   background-color: black;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 0.8em;
   color: white;
   font-weight: 600;
   text-transform: uppercase;
@@ -290,6 +302,7 @@
   display: flex;
   align-items: center;
   background-color: white;
+  align-items: center;
   border: none;
   gap: 10px;
   outline: none;
@@ -307,12 +320,13 @@
 }
 
 .productWishList button:hover::after {
-  width: 50%;
+  width: 100%;
 }
 
 .productWishList button p {
   text-transform: uppercase;
   font-weight: 500;
+  margin-bottom: 0;
 }
 
 .productShare {
@@ -323,6 +337,10 @@
   font-size: 13px;
   font-weight: 500;
   position: relative;
+  cursor: pointer;
+}
+.productShare p{
+  margin-bottom: 0;
 }
 
 .productShare::after {
@@ -336,7 +354,7 @@
 }
 
 .productShare:hover::after {
-  width: 50%;
+  width: 100%;
 }
 
 .productTags {
@@ -354,8 +372,6 @@
   font-size: 13px;
   color: #767676;
 }
-
-/* Responsive CSS */
 
 @media screen and (max-width: 1250px) {
   .productCartBtn button {

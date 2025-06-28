@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 30px;
-  height: 30rem;
+  height: 30em;
   padding: 0 160px;
   margin: 85px 0;
 }
@@ -12,6 +12,8 @@
   background-size: cover;
   background-position: center center;
   padding: 30px;
+  border-radius: 1em;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -50,6 +52,8 @@
   background-image: url("../../../Assets/Collection/collection2.jpg");
   background-size: cover;
   background-position: center;
+  border-radius: 1em;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -68,6 +72,8 @@
   background-size: cover;
   background-position: center;
   display: flex;
+  border-radius: 1em;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   flex-direction: column;
   justify-content: flex-end;
   padding: 30px;
@@ -77,6 +83,8 @@
 .box2 {
   background-color: #f4e5e0;
   display: flex;
+  border-radius: 1em;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   flex-direction: column;
   justify-content: flex-end;
   padding: 30px;

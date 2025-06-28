@@ -44,7 +44,7 @@ const Navbar = () => {
         <div className="logoLinkContainer">
           <div className="logoContainer">
             <Link to="/" onClick={scrollToTop}>
-              <img src={logo} alt="Logo" width={'125px'} />
+              <img src={logo} alt="Logo"/>
             </Link>
           </div>
           <div className="linkContainer">

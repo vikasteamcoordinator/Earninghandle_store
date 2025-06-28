@@ -61,8 +61,8 @@ const DealTimer = () => {
 
   return (
     <>
-      <div className="mainDeal">
-        <div className="dealTimer">
+      <div className="dealTimer">
+        <div className="container">
           <div className="dealTimerMainContent">
             <div className="dealTimeContent">
               <p>Deal of the Week</p>

@@ -1,82 +1,82 @@
 import React, { useState } from "react";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-
 import "./HeroSection.css";
-import { Model } from "../../Model/Model";
-import { Link } from "react-router-dom";
+
+const slides = [
+  {
+    title: "Explore the Future",
+    subtitle: "Innovation drives us forward",
+    image:
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=60",
+  },
+  {
+    title: "Design with Passion",
+    subtitle: "Creative solutions for modern problems",
+    image:
+      "https://plus.unsplash.com/premium_photo-1719289799376-d3de0ca4ddbc?w=600&auto=format&fit=crop&q=60",
+  },
+  {
+    title: "Code that Matters",
+    subtitle: "Build meaningful digital products",
+    image:
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=60",
+  },
+  {
+    title: "Scale with Confidence",
+    subtitle: "Robust infrastructure for growth",
+    image:
+      "https://images.unsplash.com/photo-1627384113743-6bd5a479fffd?w=600&auto=format&fit=crop&q=60",
+  },
+];
 
 const HeroSection = () => {
-  const [tshirtColor, setTshirtColor] = useState("red");
+  const [current, setCurrent] = useState(0);
+  const [prev, setPrev] = useState(0);
+  const [animDirection, setAnimDirection] = useState("right");
 
-  const changeColor = (color) => {
-    setTshirtColor(color);
+  const nextSlide = () => {
+    setPrev(current);
+    setCurrent((prev) => (prev + 1) % slides.length);
+    setAnimDirection("right");
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+  const prevSlide = () => {
+    setPrev(current);
+    setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+    setAnimDirection("left");
   };
 
   return (
-    <>
-      <div className="heroMain">
-        <div className="sectionleft">
-          <p>New Trend</p>
-          <h1>Summer Sale Stylish</h1>
-          <span>Limited Time Offer - Up to 60% off & Free Shipping</span>
-          <div className="heroLink">
-            <Link to="/shop" onClick={scrollToTop}>
-              <h5>Discover More</h5>
-            </Link>
-          </div>
-        </div>
-        <div className="sectionright">
-          <Canvas
-            className="canvasModel"
-            camera={{ position: [0, 5, 15], fov: 50 }}
-          >
-            <ambientLight intensity={0.5} />
-            <directionalLight
-              position={[10, 10, 5]}
-              intensity={2.5}
-              color={"white"}
-            />
+    <div className="heroMain">
+      <div className="carouselContainer container">
+        {slides.map((slide, index) => {
+          let className = "slide";
+          if (index === current) {
+            className += ` active ${animDirection}-in`;
+          } else if (index === prev) {
+            className += ` ${animDirection}-out`;
+          }
 
-            <OrbitControls
-              enableZoom={false}
-              enablePan={false}
-              minAzimuthAngle={-Infinity}
-              maxAzimuthAngle={Infinity}
-              maxPolarAngle={Math.PI / 2}
-              minPolarAngle={Math.PI / 2}
-            />
+          return (
+            <div className={className} key={index}>
+              <div className="leftContent">
+                <h1>{slide.title}</h1>
+                <p>{slide.subtitle}</p>
+              </div>
+              <div className="rightContent">
+                <img src={slide.image} alt={`Slide ${index + 1}`} />
+              </div>
+            </div>
+          );
+        })}
 
-            <Model color={tshirtColor} />
-          </Canvas>
-          <div className="heroColorBtn">
-            <button
-              onClick={() => changeColor("#353933")}
-              style={{ backgroundColor: "#353933" }}
-            ></button>
-            <button
-              onClick={() => changeColor("#EFBD4E")}
-              style={{ backgroundColor: "#EFBD4E" }}
-            ></button>
-            <button
-              onClick={() => changeColor("#726DE7")}
-              style={{ backgroundColor: "#726DE7" }}
-            ></button>
-            <button
-              onClick={() => changeColor("red")}
-              style={{ backgroundColor: "red" }}
-            ></button>
-          </div>
-        </div>
+        <button className="prevBtn" onClick={prevSlide}>
+          &#10094;
+        </button>
+        <button className="nextBtn" onClick={nextSlide}>
+          &#10095;
+        </button>
       </div>
-    </>
+    </div>
   );
 };
 

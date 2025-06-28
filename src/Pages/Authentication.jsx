@@ -1,10 +1,12 @@
 import React from "react";
-import LoginSignUp from "../Components/Authentication/LoginSign/LoginSignUp";
+import LoginSignUp from "../Components/Login/Loginnew";
+import Register from "../Components/Register/registerAff";
 
 const Authentication = () => {
   return (
     <>
       <LoginSignUp />
+      <Register />
     </>
   );
 };

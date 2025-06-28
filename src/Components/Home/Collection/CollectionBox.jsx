@@ -13,7 +13,7 @@ const CollectionBox = () => {
 
   return (
     <>
-      <div className="collection">
+      <div className="collection container">
         <div className="collectionLeft">
           <p className="col-p">Hot List</p>
           <h3 className="col-h3">

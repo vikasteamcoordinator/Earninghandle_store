@@ -13,7 +13,7 @@ const Banner = () => {
 
   return (
     <>
-      <div className="banner">
+      <div className="banner container">
         <div className="bannerLeft">
           <h6 className="bannerh6">Starting At $19</h6>
           <h3 className="bannerh3">Women's T-shirts</h3>

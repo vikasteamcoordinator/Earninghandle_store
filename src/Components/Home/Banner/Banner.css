@@ -12,6 +12,8 @@
   background-position: center;
   background-size: cover;
   display: flex;
+    border-radius: 1em;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   flex-direction: column;
   justify-content: flex-end;
   padding: 30px;
@@ -23,6 +25,8 @@
   background-position: center;
   background-size: cover;
   display: flex;
+    border-radius: 1em;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   flex-direction: column;
   justify-content: flex-end;
   padding: 30px;
@@ -34,6 +38,7 @@
 .bannerh6 {
   color: var(--color, white);
   text-transform: uppercase;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
   font-weight: 600;
   font-size: 17px;
 }
@@ -41,12 +46,14 @@
 .bannerh3 {
   color: var(--color, white);
   font-size: 27px;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
   font-weight: 600;
 }
 
 .bannerh5 {
   font-size: 15px;
   text-transform: uppercase;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
   font-weight: 600;
 }
 

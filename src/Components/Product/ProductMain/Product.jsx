@@ -159,16 +159,6 @@ const Product = () => {
                 <Link to="/">Home</Link>&nbsp;/&nbsp;
                 <Link to="/shop">The Shop</Link>
               </div>
-              <div className="prevNextLink">
-                <Link to="/product">
-                  <GoChevronLeft />
-                  <p>Prev</p>
-                </Link>
-                <Link to="/product">
-                  <p>Next</p>
-                  <GoChevronRight />
-                </Link>
-              </div>
             </div>
             <div className="productName">
               <h1>Lightweight Puffer Jacket With a Hood</h1>
@@ -179,7 +169,6 @@ const Product = () => {
               <FaStar color="#FEC78A" size={10} />
               <FaStar color="#FEC78A" size={10} />
               <FaStar color="#FEC78A" size={10} />
-              <p>8k+ reviews</p>
             </div>
             <div className="productPrice">
               <h3>$90</h3>
@@ -207,7 +196,8 @@ const Product = () => {
                     >
                       <button
                         style={{
-                          borderColor: selectSize === size ? "#000" : "#e0e0e0",
+                          backgroundColor: selectSize === size ? "#000" : "#fff",
+                          color: selectSize === size ? "#fff" : "#000",
                         }}
                         onClick={() => setSelectSize(size)}
                       >
@@ -237,8 +227,8 @@ const Product = () => {
                           backgroundColor: color.toLowerCase(),
                           border:
                             highlightedColor === color
-                              ? "0px solid #000"
-                              : "0px solid white",
+                              ? "0.05px solid #000"
+                              : "0.2px solid #000",
                           padding: "8px",
                           margin: "5px",
                           cursor: "pointer",

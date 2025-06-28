@@ -80,7 +80,7 @@ const Trendy = () => {
 
   return (
     <>
-      <div className="trendyProducts">
+      <div className="trendyProducts container">
         <h2>
           Our Trendy <span>Products</span>
         </h2>
@@ -138,7 +138,7 @@ const Trendy = () => {
                       className="trendyProductImagesCart"
                       onClick={() => handleAddToCart(product)}
                     >
-                      <FaCartPlus />
+                      <FaCartPlus/>
                     </div>
                     <div className="trendyProductInfo">
                       <div className="trendyProductCategoryWishlist">
