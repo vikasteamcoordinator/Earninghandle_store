@@ -5,8 +5,12 @@ import "./TermsandConditions.css";
 const TermsandConditions = () => {
   return (
     <>
+      <div className="header-ch">
+        <div className="container-ch">
+          <h1 className="title-ch">Terms and Conditions</h1>
+        </div>
+      </div>
       <div className="termsContainer">
-        <h2>TERMS & CONDITIONS</h2>
         <div className="termsContent">
           <h6>Your use of this is governed by these terms of use</h6>
           <p>

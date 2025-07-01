@@ -99,7 +99,7 @@
 
 .col-h3 {
   text-transform: uppercase;
-  font-size: 26px;
+  /* font-size: 26px; */
   font-weight: 500;
 }
 
@@ -128,7 +128,7 @@
 
   .collectionLeft {
     background-position: top center;
-    height: 150px;
+    /* height: 150px; */
   }
 }
 
@@ -144,7 +144,7 @@
   }
 
   .collectionTop {
-    height: 150px;
+    /* height: 150px; */
   }
 
   .collectionBottom {
@@ -154,10 +154,10 @@
   .box1 {
     background-position: center top;
     background-size: cover;
-    height: 150px;
+    /* height: 150px; */
   }
 
   .box2 {
-    height: 150px;
+    /* height: 150px; */
   }
 }

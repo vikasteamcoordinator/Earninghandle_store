@@ -151,7 +151,7 @@
   cursor: pointer;
   border-radius: 0.8em;
   box-shadow: 0 4px 16px rgba(224, 197, 17, 0.5);
-  border: solid 0.5px #F2B870;
+  border: solid 0.5px #f2b870;
 }
 
 .trendyProductContainer:hover h4 {
@@ -269,14 +269,20 @@
     border-radius: 50%;
     padding: 5px;
     z-index: 8;
-    color: #F2B870;
+    color: #f2b870;
   }
+}
 
+@media screen and (max-width: 968px) {
+  .trendyMainContainer {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+  }
 }
 
 @media screen and (max-width: 768px) {
   .trendyMainContainer {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-gap: 20px;
   }
 
@@ -296,7 +302,7 @@
   }
 
   .trendyMainContainer {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 
   .trendyProductImages {

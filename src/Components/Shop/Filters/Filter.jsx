@@ -166,7 +166,7 @@ const Filter = () => {
             <AccordionDetails sx={{ padding: 0 }}>
               {/* Search bar */}
               <div className="searchBar">
-                <BiSearch className="searchIcon" size={20} color={"#767676"} />
+                {/* <BiSearch className="searchIcon" size={20} color={"#767676"} /> */}
                 <input
                   type="text"
                   placeholder="Search"
@@ -220,7 +220,7 @@ const Filter = () => {
                 valueLabelDisplay="auto"
                 valueLabelFormat={(value) => `$${value}`}
                 sx={{
-                  color: "black",
+                  color: "#f2b870",
                   "& .MuiSlider-thumb": {
                     backgroundColor: "white",
                     border: "2px solid black",

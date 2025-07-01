@@ -12,6 +12,41 @@
   padding-left: 100px;
 }
 
+.ImageSection {
+  max-height: 100vh;
+  height: fit-content;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+  background: #f9fbfd;
+  background-image: url("../../Assets/About/aboutBG.png") !important;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.bgImg {
+  width: 100%;
+  max-width: 1250px;
+  padding: 5%;
+  padding-top: 150px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+}
+
+.imgContent img{
+  width: 320px;
+  height: 400px;
+  border-radius: 1em;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
 .aboutSection img {
   margin-bottom: 40px;
 }
@@ -111,6 +146,12 @@
 }
 
 @media screen and (max-width: 1210px) {
+  .imgContent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
   .aboutSection {
     padding: 0 60px;
   }
@@ -126,6 +167,7 @@
   .content2 {
     flex-wrap: wrap;
     gap: 5px;
+    display: block;
   }
 
   .companyPartners {
@@ -134,6 +176,12 @@
 
   .companyPartners h5 {
     padding-left: 0;
+  }
+}
+
+@media screen and (max-width: 786px) {
+  .bgImg {
+    padding-top: 100px;
   }
 }
 

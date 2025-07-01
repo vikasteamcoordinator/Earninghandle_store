@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Popup.css";
-
 import popupImg from "../../Assets/newsletter-popup.jpg";
 
 const Popup = () => {
-  const [showPopup, setShowPopup] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
+
+  useEffect(() => {
+    const isPopupDismissed = localStorage.getItem("popupDismissed");
+    if (!isPopupDismissed) {
+      setShowPopup(true);
+    }
+  }, []);
 
   const handleClose = () => {
     setFadeOut(true);
     setTimeout(() => {
       setShowPopup(false);
+      localStorage.setItem("popupDismissed", "true");
     }, 300);
   };
 

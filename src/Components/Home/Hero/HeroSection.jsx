@@ -1,30 +1,31 @@
 import React, { useState } from "react";
 import "./HeroSection.css";
 
+import img1 from '../../../Assets/heroSec/1.png'
+import img2 from '../../../Assets/heroSec/2.png'
+import img3 from '../../../Assets/heroSec/3.png'
+import img4 from '../../../Assets/heroSec/4.png'
+
 const slides = [
   {
     title: "Explore the Future",
     subtitle: "Innovation drives us forward",
-    image:
-      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=60",
+    image:img1
   },
   {
     title: "Design with Passion",
     subtitle: "Creative solutions for modern problems",
-    image:
-      "https://plus.unsplash.com/premium_photo-1719289799376-d3de0ca4ddbc?w=600&auto=format&fit=crop&q=60",
+    image:img2
   },
   {
     title: "Code that Matters",
     subtitle: "Build meaningful digital products",
-    image:
-      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=60",
+    image:img3
   },
   {
     title: "Scale with Confidence",
     subtitle: "Robust infrastructure for growth",
-    image:
-      "https://images.unsplash.com/photo-1627384113743-6bd5a479fffd?w=600&auto=format&fit=crop&q=60",
+    image:img4
   },
 ];
 
@@ -57,12 +58,12 @@ const HeroSection = () => {
           }
 
           return (
-            <div className={className} key={index}>
-              <div className="leftContent">
+            <div className={`${className}`} key={index}>
+              <div className="leftContent col-md-6">
                 <h1>{slide.title}</h1>
                 <p>{slide.subtitle}</p>
               </div>
-              <div className="rightContent">
+              <div className="rightContent col-md-6">
                 <img src={slide.image} alt={`Slide ${index + 1}`} />
               </div>
             </div>

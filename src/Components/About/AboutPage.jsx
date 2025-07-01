@@ -1,8 +1,8 @@
 import React from "react";
 import "./AboutPage.css";
 
-import about1 from "../../Assets/About/about-1.jpg";
-import about2 from "../../Assets/About/about-2.jpg";
+import about1 from "../../Assets/About/aboutIMG.png";
+import about2 from "../../Assets/About/about-2.png";
 
 import Services from "../../Components/Home/Services/Services";
 
@@ -21,9 +21,10 @@ import brand7 from "../../Assets/Brands/brand7.png";
 const AboutPage = () => {
   return (
     <>
+        <div className="ImageSection">
+          <img className="bgImg" src={about1} alt="bg" />
+        </div>
       <div className="aboutSection">
-        <h2>About Uomo</h2>
-        <img src={about1} alt="" />
         <div className="aboutContent">
           <h3>Our Story</h3>
           <h4>

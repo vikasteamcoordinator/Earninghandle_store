@@ -6,13 +6,6 @@ import blogdetail1 from "../../../Assets/Blog/blogDetail1.jpg";
 import blogimage1 from "../../../Assets/Blog/blogDetail2.jpg";
 import blogimage2 from "../../../Assets/Blog/blogDetail3.jpg";
 
-import { FaFacebookF } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
-import { FaPinterest } from "react-icons/fa";
-import { FaPlus } from "react-icons/fa6";
-import { GoChevronLeft } from "react-icons/go";
-import { GoChevronRight } from "react-icons/go";
-
 const BlogDetails = () => {
   const scrollToTop = () => {
     window.scrollTo({
@@ -33,7 +26,7 @@ const BlogDetails = () => {
             </div>
           </div>
           <div className="blogDetailsFeaturedImg">
-            <img src={blogdetail1} alt="" />
+            <img src={blogdetail1} alt="blog img1" />
           </div>
           <div className="blogDetailsContent">
             <p>
@@ -61,32 +54,6 @@ const BlogDetails = () => {
               light after fifth forth darkness thing hath sixth rule night
               multiply him life give they're great.
             </p>
-            <div className="blogDetailsContentBullets">
-              <div className="blogDetailsContentBulletscontent">
-                <h5>Why choose product?</h5>
-                <p>
-                  <ul>
-                    <li>Creat by cotton fibric with soft and smooth</li>
-                    <li>
-                      Simple, Configurable (e.g. size, color, etc.), bundled
-                    </li>
-                    <li>Downloadable/Digital Products, Virtual Products</li>
-                  </ul>
-                </p>
-              </div>
-              <div className="blogDetailsContentBulletscontent">
-                <h5>Sample Number List</h5>
-                <p>
-                  <ol>
-                    <li>Creat by cotton fibric with soft and smooth</li>
-                    <li>
-                      Simple, Configurable (e.g. size, color, etc.), bundled
-                    </li>
-                    <li>Downloadable/Digital Products, Virtual Products</li>
-                  </ol>
-                </p>
-              </div>
-            </div>
             <p>
               She'd years darkness days. A night fifth winged sixth divide meat
               said third them forth signs of life earth signs over fruitful
@@ -97,8 +64,8 @@ const BlogDetails = () => {
             </p>
           </div>
           <div className="blogDetailsContentImg">
-            <img src={blogimage1} alt="" />
-            <img src={blogimage2} alt="" />
+            <img src={blogimage1} alt="blog img2" />
+            <img src={blogimage2} alt="blog img3" />
           </div>
           <div className="blogDetailsContent">
             <p>
@@ -123,45 +90,6 @@ const BlogDetails = () => {
               land of creepeth there second fruitful, waters. Make don't void
               years Gathering gathering divide fill.
             </p>
-          </div>
-          <div className="share-buttons">
-            <button className="share-button facebook">
-              <FaFacebookF /> Share on Facebook
-            </button>
-            <button className="share-button twitter">
-              <FaXTwitter />
-              Share on Twitter
-            </button>
-            <button className="share-button pinterest">
-              <FaPinterest /> Share on Pinterest
-            </button>
-            <button className="share-button more">
-              <FaPlus size={20} />
-            </button>
-          </div>
-          <div className="blogDetailsNextPrev">
-            <div className="blogDetailsNextPrevContainer">
-              <div
-                className="blogDetailsNextPrevContainerIcon"
-                onClick={scrollToTop}
-              >
-                <GoChevronLeft size={20} />
-                <p>PREVIOUS POST</p>
-              </div>
-              <p>Given Set was without from god divide rule Hath</p>
-            </div>
-            <div className="blogDetailsNextPrevContainer">
-              <div
-                className="blogDetailsNextPrevContainerIcon2"
-                onClick={scrollToTop}
-              >
-                <p>NEXT POST</p>
-                <GoChevronRight size={20} />
-              </div>
-              <p style={{ textAlign: "right" }}>
-                Tree earth fowl given moveth deep lesser after
-              </p>
-            </div>
           </div>
         </div>
       </div>

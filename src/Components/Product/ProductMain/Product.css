@@ -1,6 +1,6 @@
 .productSection {
   padding: 0 160px;
-  margin-top: 30px;
+  padding-top: 110px;
 }
 
 .productShowCase {
@@ -282,7 +282,7 @@
 .productCartBtn button {
   padding: 20px 110px;
   background-color: black;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   border-radius: 0.8em;
   color: white;
   font-weight: 600;
@@ -339,7 +339,7 @@
   position: relative;
   cursor: pointer;
 }
-.productShare p{
+.productShare p {
   margin-bottom: 0;
 }
 
@@ -386,7 +386,7 @@
 @media screen and (max-width: 1210px) {
   .productSection {
     padding: 0 60px;
-    margin-top: 0;
+    padding-top: 110px;
   }
 
   .productShowCase {
@@ -437,6 +437,7 @@
 @media screen and (max-width: 450px) {
   .productSection {
     padding: 0 15px;
+    padding-top: 110px;
   }
 
   .productGallery {

@@ -13,14 +13,15 @@
   max-width: 1150px;
   margin: 0 auto;
   box-sizing: border-box;
-  overflow-y: auto ;
-    max-height: 100vh;
+  overflow-y: auto;
+  max-height: 100vh;
   overflow-y: auto;
   scrollbar-width: none;
   scroll-behavior: smooth;
+  align-items: stretch;
 }
 
-.register-card::-webkit-scrollbar{
+.register-card::-webkit-scrollbar {
   scrollbar-width: none;
 }
 
@@ -38,23 +39,6 @@
   transition: opacity 0.2s ease;
 }
 
-.back-button {
-  align-self: flex-start;
-  margin: 0px;
-  background: none;
-  border: none;
-  color: #f7a015;
-  cursor: pointer;
-  border-radius: 0.8em;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s;
-}
-
-.back-button:hover {
-  color: #000000;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
 .register-content {
   display: flex;
   flex-direction: row;
@@ -62,14 +46,19 @@
 
 .register-image-section {
   display: flex;
-  flex: 1;
+  align-items: center;
+  justify-content: center;
   height: 100%;
 }
 
 .register-illustration {
   border-top-right-radius: 2em;
   border-bottom-right-radius: 2em;
-  width: 90%;
+  height: 80vh;
+  width: 100%;
+  background-position: center;
+  background-size: contain;
+  object-fit: cover;
 }
 
 .register-form-section {
@@ -102,14 +91,20 @@
 }
 
 .form-control {
-  border: none;
-  border-bottom: 1px solid #f8c471;
-  border-radius: 0;
-  padding-left: 30px;
+  width: 80%;
+  padding: 0.5em !important;
+  margin-bottom: 1rem;
+  background-color: rgba(242, 184, 112, 0.1) !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid #ccc;
+  color: #f2b870 !important;
+  border-radius: 0.5em !important;
+  font-size: 1em;
+  padding-left: 30px !important;
 }
 
-input::placeholder{
-  color:#aaa!important;
+input::placeholder {
+  color: #f2b870 !important;
   opacity: 0.5;
 }
 
@@ -121,6 +116,7 @@ input::placeholder{
   display: flex;
   align-items: center;
   margin-bottom: 16px;
+  width: 80% !important;
   position: relative;
 }
 
@@ -128,13 +124,13 @@ input::placeholder{
   position: absolute;
   left: 5px;
   top: 10px;
-  color: #f8c471;
+  color: #f2b870;
   font-size: 1.2em;
 }
 
 .verify-button {
   background-color: transparent;
-  color: #f8c471;
+  color: #f2b870;
   border: none;
   cursor: pointer;
 }
@@ -144,7 +140,7 @@ input::placeholder{
   align-items: center;
   flex: 1;
   border: none;
-  border-bottom: 1px solid #f8c471;
+  /* border-bottom: 1px solid #f2b870; */
   border-radius: 0;
   background: transparent;
 }
@@ -152,7 +148,7 @@ input::placeholder{
 .country-code {
   padding-left: 30px;
   white-space: nowrap;
-  color: #f8c471;
+  color: #f2b870;
 }
 
 .single-input {
@@ -161,8 +157,9 @@ input::placeholder{
 
 .terms {
   display: flex;
-  align-items: center;
-  margin-bottom: 16px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
   position: relative;
 }
 
@@ -174,11 +171,11 @@ input::placeholder{
 
 .custom-icon {
   margin-right: 6px;
-  color: #f8c471;
+  color: #f2b870;
 }
 
 .create-account {
-  background-color: #f8c471;
+  background-color: #f2b870;
   border: none;
   border-radius: 12px;
   padding: 10px 30px;
@@ -213,7 +210,7 @@ input::placeholder{
     z-index: 1;
     flex-direction: column;
   }
-  .padding-class{
+  .padding-class {
     padding: 20px 20px !important;
   }
 
@@ -257,6 +254,17 @@ input::placeholder{
     margin-bottom: -10px;
   }
   .back-button {
-    display: none;
+    font-size: 24px;
+    top: 0.8em;
+    left: 0.8em;
+
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 486px) {
+  .input-group {
+    width: 100% !important;
   }
 }

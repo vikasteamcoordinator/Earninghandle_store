@@ -57,19 +57,35 @@
 
 .back-button {
   position: absolute;
-  top: 2rem;
-  left: 4rem;
-  border: 2px solid #f2b870 !important;
-  border-radius: 20px;
-  padding: 5px 20px;
+  z-index: 9999;
+  top: 1em;
+  left: 1em;
+
+  width: 48px;
+  height: 48px;
+
+  background: none;
+  border: 2px solid #f2b870;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 30px;
   color: #333;
-  text-decoration: none;
-  font-size: 0.9rem;
-  letter-spacing: 0.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.back-button:hover {
+  color: #000000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
 .login-btn {
-  background-color: #f8c471;
+  background-color: #f2b870;
   border: none;
   border-radius: 20px;
   padding: 10px 30px;
@@ -86,32 +102,12 @@
   background-color: #f5b041;
 }
 
-.form-control {
-  border: none;
-  border-bottom: 1px solid #ddd;
-  border-radius: 0;
-  padding-left: 30px;
-}
-
-.input-group {
-  position: relative;
-  margin-bottom: 2.5rem;
-}
-
-.input-icon {
-  position: absolute;
-  left: 0;
-  top: 10px;
-  color: #f8c471;
-  z-index: 10;
-}
-
 input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
   width: 15px;
   height: 15px;
-  border: 2px solid #f8c471;
+  border: 2px solid #f2b870;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -122,7 +118,7 @@ input {
 
 .password-toggle {
   position: absolute;
-  right: 0;
+  right: 10px;
   top: 10px;
   color: #555;
   cursor: pointer;
@@ -151,11 +147,30 @@ input {
   font-weight: bold;
 }
 
+.otp-container-ls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.otp-box-ls {
+  width: 45px;
+  height: 45px;
+  text-align: center;
+  font-size: 18px;
+  background-color: rgba(242, 184, 112, 0.1) !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid #ccc;
+  color: #f2b870 !important;
+  border-radius: 0.5em !important;
+}
+
 .input-group
   > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(
     .valid-feedback
   ):not(.invalid-tooltip):not(.invalid-feedback) {
-  border-color: #f8c471;
+  border-color: rgba(242, 184, 112, 0.2);
 }
 
 .form-check {
@@ -169,7 +184,7 @@ input {
   appearance: none;
   width: 20px;
   height: 20px;
-  border: 2px solid #f8c471;
+  border: 2px solid #f2b870;
   border-radius: 4px;
   position: relative;
   cursor: pointer;
@@ -179,8 +194,8 @@ input {
 }
 
 .custom-checkbox:checked {
-  background-color: #f8c471;
-  border-color: #f8c471;
+  background-color: #f2b870;
+  border-color: #f2b870;
 }
 
 .custom-checkbox:checked::after {
@@ -198,7 +213,7 @@ input {
 .custom-icon {
   width: 18px;
   height: 18px;
-  border: 2px solid #f8c471;
+  border: 2px solid #f2b870;
   border-radius: 4px;
   display: inline-flex;
   align-items: center;
@@ -214,13 +229,69 @@ input {
 }
 
 .custom-checkbox:checked + label .custom-icon {
-  background-color: #f8c471;
-  border-color: #f8c471;
+  background-color: #f2b870;
+  border-color: #f2b870;
   color: white;
 }
 
 .custom-checkbox:checked + label .custom-icon ion-icon {
   display: block;
+}
+
+.create-underline-ls {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+.create-underline-ls::after {
+  content: "";
+  position: absolute;
+  left: 25%;
+  bottom: 0;
+  width: 50%;
+  height: 1px;
+  background-color: black;
+}
+
+.login-options-ls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background-color: #fef5e6;
+  border-radius: 12px;
+}
+
+.login-btn-ls {
+  background-color: white;
+  padding: 10px 15px;
+  border-radius: 0.8em;
+  font-weight: 500;
+  color: black;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-btn-ls:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+}
+
+.number-ls {
+  color: #0000ee;
+}
+
+.google-ls {
+  color: #ea4335;
+}
+
+.or-ls {
+  font-weight: 600;
+  color: #6b6b6b;
 }
 
 .animated-icon-link {
@@ -306,6 +377,10 @@ input {
   }
   .padding-class-p {
     padding: 10px 40px !important;
+  }
+
+  .login-btn-ls {
+    width: 100%;
   }
 }
 

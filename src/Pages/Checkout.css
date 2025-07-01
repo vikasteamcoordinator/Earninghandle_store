@@ -1,0 +1,199 @@
+.main-ch {
+  padding-bottom: 40px;
+}
+
+.header-ch {
+  text-align: center;
+  background: linear-gradient(to right, #ffded6, #ffd3e1);
+  background-image: url('../Assets/heroSec.png');
+  padding: 40px 0;
+  padding-top: 120px;
+}
+
+.title-ch {
+  font-size: 36px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.breadcrumb-ch {
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.breadcrumb-list-ch {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  padding-left: 0;
+}
+
+.breadcrumb-list-ch li {
+  color: #666;
+}
+
+.breadcrumb-list-ch li.active-ch {
+  font-weight: bold;
+}
+
+.container-ch {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.content-ch {
+  padding: 30px 0;
+}
+
+.checkout-ch {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.row-ch {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+
+.address-pane-ch {
+  width: 100%;
+  max-width: 500px;
+}
+
+.note-ch {
+  margin-bottom: 15px;
+  font-style: italic;
+  color: #555;
+}
+
+.product-pane-ca {
+  width: 100%;
+  max-width: 500px;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 10px;
+}
+
+.product-table-ch {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 1.5em;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.product-table-ch th,
+.product-table-ch td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid #00000057;
+}
+
+.product-table-ch th {
+  background-color: #f2f2f2;
+  font-weight: 600;
+}
+
+.product-table-ch tr:last-child td {
+  border-bottom: none;
+}
+
+.card-ch {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 2em;
+}
+
+.card-title-ch {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.card-text-ch {
+  font-size: 14px;
+  line-height: 2;
+}
+
+.summary-ch {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 25px;
+  border-radius: 2em;
+  width: 100%;
+  max-width: 400px;
+}
+
+.summary-title-ch {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.table-ch {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table-ch th,
+.table-ch td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.table-ch .total-ch td {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.btn-ch {
+  width: 100%;
+  background-color: #222;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-ch:hover {
+  background-color: #444;
+}
+
+.payment-options-ch {
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 1em;
+}
+
+.payment-options-ch h4 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.payment-options-ch label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #333;
+}
+
+.payment-options-ch input[type="radio"] {
+  margin-right: 8px;
+}

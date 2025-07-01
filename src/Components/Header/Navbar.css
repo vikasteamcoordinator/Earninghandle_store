@@ -4,13 +4,23 @@
   justify-content: space-between;
   padding: 5px 160px;
   height: 100px;
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 10;
+  width: 100%;
+  z-index: 100;
+  transition: transform 0.3s ease-in-out;
   background-color: rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 10px 33px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.navBar.hidden {
+  transform: translateY(-100%);
+}
+
+.navBar.visible {
+  transform: translateY(0);
 }
 
 .logoLinkContainer {
@@ -91,36 +101,45 @@
 
   .mobile-nav {
     display: flex;
-        align-items: center;
+    align-items: center;
     justify-content: space-between;
-    padding: 20px 30px;
-    background-color: rgba(0, 0, 0, 0.25);
+    position: fixed;
+    height: 100px;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    transition: transform 0.3s ease-in-out;
+    padding: 10px 30px;
+    background-color: rgb(0, 0, 0, 0.25);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    position: sticky;
-    top: 0;
-    z-index: 10;
+  }
+
+  .mobile-nav.hidden {
+    transform: translateY(-100%);
+  }
+
+  .mobile-nav.visible {
+    transform: translateY(0);
   }
 }
 
 @media screen and (max-width: 450px) {
   .mobile-nav {
-    padding: 20px 15px;
+    padding: 5px 15px;
   }
 }
-
-/* Mobile Menu */
 
 .mobile-menu {
   display: flex;
   flex-direction: column;
   gap: 60px;
   height: 100vh;
-  background-color: rgb(0, 0, 0, 0.5);
-    backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background-color: rgb(0, 0, 0, 0.25);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   position: absolute;
-  top: 110px;
+  top: 100px;
   right: 0;
   width: 100%;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -128,7 +147,6 @@
   transform: translateY(-100%);
   transition: transform 0.3s ease-out, opacity 0.3s ease-out;
   z-index: 9;
-  /* border-top: 1px solid #e4e4e4; */
 }
 
 .mobile-menu.open {
@@ -203,6 +221,7 @@
 .mobile-menuFooterLogin p {
   font-size: 14px;
   font-weight: 600;
+  margin-bottom: 0;
   text-transform: uppercase;
 }
 
@@ -253,4 +272,84 @@
 
 .mobile-menuSocial_links svg {
   cursor: pointer;
+}
+
+.header-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.icon-search {
+  cursor: pointer;
+}
+
+.search-toggle {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 10px;
+  color: #333;
+}
+
+.header-search-wrapper {
+  display: flex;
+  position: relative;
+  flex: 1;
+  max-width: 300px;
+}
+
+.form-control-nav {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  background: rgba(0, 0, 0, 0.2);
+  color: #1b1b1b;
+  border-radius: 5px;
+  outline: none;
+  margin-bottom: 0;
+}
+
+.form-control-nav::placeholder {
+  color: #1b1b1b !important;
+}
+
+.search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: none;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  color: #eee !important;
+}
+
+.search-suggestion {
+  display: block;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #eee;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(18px);
+  border-top: 1px solid #eee;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.search-suggestion:last-child {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.search-suggestion:hover {
+  background-color: #f2f2f2;
 }

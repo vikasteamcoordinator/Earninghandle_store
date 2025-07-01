@@ -91,7 +91,7 @@ const ShopDetails = () => {
                   Home
                 </Link>
                 &nbsp;/&nbsp;
-                <Link to="/shop">The Shop</Link>
+                <Link to="/shop">The Store</Link>
               </div>
               <div className="filterLeft" onClick={toggleDrawer}>
                 <IoFilterSharp />
@@ -112,7 +112,7 @@ const ShopDetails = () => {
                 <div className="filterRight" onClick={toggleDrawer}>
                   <div className="filterSeprator"></div>
                   <IoFilterSharp />
-                  <p>Filter</p>
+                  <p className="mb-0">Filter</p>
                 </div>
               </div>
             </div>
@@ -161,7 +161,7 @@ const ShopDetails = () => {
                           <h5>{product.productName}</h5>
                         </Link>
 
-                        <p>${product.productPrice}</p>
+                        <p>₹{product.productPrice}</p>
                         <div className="sdProductRatingReviews">
                           <div className="sdProductRatingStar">
                             <FaStar color="#FEC78A" size={10} />

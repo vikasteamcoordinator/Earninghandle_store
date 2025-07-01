@@ -105,10 +105,15 @@ const LimitedEdition = () => {
             }}
             modules={[Navigation, Autoplay]}
             breakpoints={{
-              320: {
+              10: {
                 slidesPerView: 1,
                 slidesPerGroup: 1,
                 spaceBetween: 14,
+              },
+              498: {
+                slidesPerView: 2,
+                slidesPerGroup: 1,
+                spaceBetween: 18,
               },
               768: {
                 slidesPerView: 3,

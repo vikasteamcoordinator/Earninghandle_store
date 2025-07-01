@@ -1,6 +1,6 @@
 .shopDetails {
   padding: 0 160px;
-  margin-top: 30px;
+  padding-top: 100px;
 }
 
 .shopDetailMain {
@@ -71,7 +71,6 @@
   outline: none;
   font-weight: 500;
   font-size: 14px;
-  background-color: white;
 }
 
 .shopDetailsSort {
@@ -114,6 +113,8 @@
   transition: 0.3s linear;
   -moz-transition: 0.3s linear;
   -o-transition: 0.3s linear;
+    border-radius: 1em;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .sdProductImages img {
@@ -158,6 +159,8 @@
   text-transform: uppercase;
   font-weight: 500;
   font-size: 14px;
+  border-radius: 0.5em;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   z-index: 3;
   cursor: pointer;
 }
@@ -341,7 +344,7 @@
 @media screen and (max-width: 1210px) {
   .shopDetails {
     padding: 0 60px;
-    margin-top: 0;
+      padding-top: 100px;
   }
 
   .sdProductImages {
