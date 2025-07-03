@@ -1,11 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import "./BlogList.css";
 
 import BlogData from "../../../Data/BlogData";
 import { Link } from "react-router-dom";
+import {allBlogs} from "../../../api/service/allBlogs";
 
 const BlogList = () => {
+    const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchBlog = async () => {
+    try {
+      const response = await allBlogs();
+      if (response?.success === true) {
+        const limitedBlogs = response.blogs.slice(0, 6);
+        setBlogs(limitedBlogs);
+      }
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchBlog();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="container py-5 d-flex justify-content-center">
+        <div
+          className="spinner-grow"
+          style={{
+            width: "3rem",
+            height: "3rem",
+            color: "#fddc7a",
+            borderRightColor: "transparent",
+          }}
+          role="status"
+        >
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (!blogs) return null;
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
