@@ -65,30 +65,27 @@ const BlogList = () => {
           </div>
         </div>
         <div className="blogPostListContainer">
-          {BlogData.map((blogPost) => (
+          {blogs?.map((item) => (
             <div className="blogPost">
               <div className="blogPostThumb">
-                <img src={blogPost.blogThumbnail} alt="blogPost" />
+                <img src={item.mainImage} alt="blogPost" />
               </div>
               <div className="blogPostContent">
                 <div className="blogPostContentDate">
-                  <p>by admin</p>
-                  <p>{blogPost.blogDate}</p>
+                  <p>{new Date(item.createdAt).toLocaleDateString("en-CA")}</p>
                 </div>
                 <div className="blogPostContentHeading">
-                  <Link to="/BlogDetails" onClick={scrollToTop}>
-                    {blogPost.blogHeading}
+                  <Link to={`/blogDetails/${item?._id}`} onClick={scrollToTop}>
+                    {item.title}
                   </Link>
                 </div>
                 <div className="blogPostContentDescription">
-                  <p>
-                    Midst one brought greater also morning green saying had
-                    good. Open stars day let over gathered, grass face one every
-                    light of under.
+                  <p className="line-clamp-4">
+                    {item.content1}
                   </p>
                 </div>
                 <div className="blogPostContentReadMore">
-                  <Link to="/BlogDetails" onClick={scrollToTop}>
+                  <Link to={`/blogDetails/${item?._id}`} onClick={scrollToTop}>
                     Continue Reading
                   </Link>
                 </div>

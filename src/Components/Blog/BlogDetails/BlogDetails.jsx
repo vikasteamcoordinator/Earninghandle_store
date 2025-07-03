@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import "./BlogDetails.css";
 
 import blogdetail1 from "../../../Assets/Blog/blogDetail1.jpg";
 import blogimage1 from "../../../Assets/Blog/blogDetail2.jpg";
 import blogimage2 from "../../../Assets/Blog/blogDetail3.jpg";
+import { allBlogs } from "../../../api/service/allBlogs";
+import { useParams } from "react-router-dom";
 
 const BlogDetails = () => {
   const scrollToTop = () => {
@@ -13,20 +15,43 @@ const BlogDetails = () => {
       behavior: "smooth",
     });
   };
+
+  const { id } = useParams();
+  const [blogs, setBlog] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await allBlogs();
+        if (response.success) {
+          const selectedBlog = response.blogs.find((b) => b._id === id);
+          setBlog(selectedBlog || null);
+        }
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, [id]);
+
   return (
     <>
       <div className="blogDetailsSection">
         <div className="blogDetailsSectionContainer">
           <div className="blogDetailsHeading">
-            <h2>5 Tips to Increase Your Online Sales</h2>
+            <h2>{blogs?.title}</h2>
             <div className="blogDetailsMetaData">
-              <span>by admin</span>
-              <span>May 19, 2023</span>
-              <span>Trends</span>
+              {/* <span>by admin</span> */}
+              <span>{new Date(blogs?.createdAt).toDateString()}</span>
+              {/* <span>Trends</span> */}
             </div>
           </div>
           <div className="blogDetailsFeaturedImg">
-            <img src={blogdetail1} alt="blog img1" />
+            <img src={blogs?.mainImage} alt="blog img1" />
           </div>
           <div className="blogDetailsContent">
             <p>
@@ -64,8 +89,8 @@ const BlogDetails = () => {
             </p>
           </div>
           <div className="blogDetailsContentImg">
-            <img src={blogimage1} alt="blog img2" />
-            <img src={blogimage2} alt="blog img3" />
+            <img src={blogs?.subImages[0]} alt="blog img2" />
+            <img src={blogs?.subImages[1]} alt="blog img3" />
           </div>
           <div className="blogDetailsContent">
             <p>
