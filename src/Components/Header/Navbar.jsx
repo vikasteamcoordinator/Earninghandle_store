@@ -309,7 +309,7 @@ const Navbar = () => {
                           <Link
                             key={index}
                             onMouseDown={() => handleOptionClick(option)}
-                            to="/Shoplist"
+                            to="/shop"
                             className="search-suggestion"
                           >
                             {option}
