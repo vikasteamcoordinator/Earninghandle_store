@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaUser, FaLock, FaEyeSlash, FaEye } from "react-icons/fa";
 import {
   IoChevronBack,
@@ -9,9 +9,16 @@ import img from "../../Assets/auth/loginbg.png";
 import "../Login/Login.css";
 import { useNavigate } from "react-router-dom";
 import ForgotPasswordMail from "../Password/ForgotPasswordMail";
+import { login, resetLogin } from "../../redux/action/authAction";
+import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 const Login = ({ onSwitch }) => {
   const navigate = useNavigate();
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const [loadingToastId, setLoadingToastId] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
@@ -64,6 +71,34 @@ const Login = ({ onSwitch }) => {
     }
   };
 
+  const { success, error, loading, isAuthenticated } = useSelector(
+    (state) => state.auth
+  );
+
+  const handleSubmit = () => {
+    // e.preventDefault();
+    const toastId = toast.loading("Authentication onboard");
+    setLoadingToastId(toastId);
+    dispatch(login(userName, password));
+  };
+
+  useEffect(() => {
+    if (success) {
+      toast.dismiss(loadingToastId);
+      toast.success("Authentication Successful");
+      setTimeout(() => {
+        dispatch(resetLogin());
+        navigate("/");
+      }, 1000);
+    }
+
+    if (error) {
+      toast.dismiss(loadingToastId);
+      toast.error(error);
+      dispatch(resetLogin());
+    }
+  }, [success, error, loadingToastId, isAuthenticated]);
+
   return (
     <div className={`fade ${fadeOut ? "out" : ""} outer-auth`}>
       <div className="register-card">
@@ -94,6 +129,9 @@ const Login = ({ onSwitch }) => {
                     type="text"
                     placeholder="Email"
                     className="form-control mb-2"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    required
                   />
                 </div>
 
@@ -103,6 +141,9 @@ const Login = ({ onSwitch }) => {
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     className="form-control"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
                   />
                   <span
                     className="password-toggle"
@@ -178,11 +219,16 @@ const Login = ({ onSwitch }) => {
               <div className="ms-auto">
                 <div
                   className="login-btn-ls px-5"
+                  style={{
+                    opacity: loading ? 0.6 : 1,
+                    cursor: loading ? "not-allowed" : "pointer",
+                  }}
                   onClick={() => {
+                    if (loading) return;
                     if (isPhoneLogin && !otpSent) {
                       setOtpSent(true);
                     } else {
-                      handleBackClick()
+                      handleSubmit();
                     }
                   }}
                 >
@@ -190,6 +236,8 @@ const Login = ({ onSwitch }) => {
                     ? otpSent
                       ? "Verify OTP"
                       : "Send OTP"
+                    : loading
+                    ? "Wait"
                     : "Login"}
                 </div>
               </div>

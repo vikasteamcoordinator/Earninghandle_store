@@ -43,39 +43,38 @@ const Trendy = () => {
     return reviewsB - reviewsA;
   };
 
-  const cartItems = useSelector((state) => state.cart.items);
 
   const handleAddToCart = (product) => {
-    const productInCart = cartItems.find(
-      (item) => item.productID === product.productID
-    );
+    // const productInCart = cartItems.find(
+    //   (item) => item.productID === product.productID
+    // );
 
-    if (productInCart && productInCart.quantity >= 20) {
-      toast.error("Product limit reached", {
-        duration: 2000,
-        style: {
-          backgroundColor: "#ff4b4b",
-          color: "white",
-        },
-        iconTheme: {
-          primary: "#fff",
-          secondary: "#ff4b4b",
-        },
-      });
-    } else {
-      dispatch(addToCart(product));
-      toast.success(`Added to cart!`, {
-        duration: 2000,
-        style: {
-          backgroundColor: "#07bc0c",
-          color: "white",
-        },
-        iconTheme: {
-          primary: "#fff",
-          secondary: "#07bc0c",
-        },
-      });
-    }
+    // if (productInCart && productInCart.quantity >= 20) {
+    //   toast.error("Product limit reached", {
+    //     duration: 2000,
+    //     style: {
+    //       backgroundColor: "#ff4b4b",
+    //       color: "white",
+    //     },
+    //     iconTheme: {
+    //       primary: "#fff",
+    //       secondary: "#ff4b4b",
+    //     },
+    //   });
+    // } else {
+    //   dispatch(addToCart(product));
+    //   toast.success(`Added to cart!`, {
+    //     duration: 2000,
+    //     style: {
+    //       backgroundColor: "#07bc0c",
+    //       color: "white",
+    //     },
+    //     iconTheme: {
+    //       primary: "#fff",
+    //       secondary: "#07bc0c",
+    //     },
+    //   });
+    // }
   };
 
   return (

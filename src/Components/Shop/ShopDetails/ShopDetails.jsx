@@ -1,30 +1,84 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ShopDetails.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../Features/Cart/cartSlice";
 
 import Filter from "../Filters/Filter";
-import { Link } from "react-router-dom";
-import StoreData from "../../../Data/StoreData";
+import { Link, useNavigate } from "react-router-dom";
 import { FiHeart } from "react-icons/fi";
-import { FaStar } from "react-icons/fa";
+import { FaRegStar, FaStar } from "react-icons/fa";
 import { IoFilterSharp, IoClose } from "react-icons/io5";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
 import { FaCartPlus } from "react-icons/fa";
 import toast from "react-hot-toast";
+import { getAllProducts } from "../../../api/service/product/allProduct";
+import { addToWishlist } from "../../../api/service/product/addWish";
 
 const ShopDetails = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState(false);
+  const [loading2, setLoading2] = useState(false);
   const [wishList, setWishList] = useState({});
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [product, setProduct] = useState([]);
 
-  const handleWishlistClick = (productID) => {
-    setWishList((prevWishlist) => ({
-      ...prevWishlist,
-      [productID]: !prevWishlist[productID],
-    }));
+  const fetchTopProducts = async () => {
+    try {
+      setLoading2(true);
+      const data = await getAllProducts();
+
+      if (data) {
+        setProduct(data.populatedCampaign);
+      }
+    } catch (error) {
+      console.error("Failed to fetch top products:", error);
+    } finally {
+      setLoading2(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTopProducts();
+  }, []);
+
+  if (loading2) {
+    return (
+      <div className="d-flex justify-content-center align-items-center min-vh-100">
+        <div className="loader" />
+      </div>
+    );
+  }
+
+  const handleWishlistClick = async (product) => {
+    if (!isAuthenticated) {
+      toast.error("Please log in to add products to the wishlist.");
+      navigate("/auth");
+      return;
+    }
+
+    if (wishList[product._id]) {
+      navigate("/wishlist");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await addToWishlist(product._id);
+
+      if (response?.success === true) {
+        toast.success("Product added to the wishlist successfully.");
+        setWishList((prev) => ({ ...prev, [product._id]: true }));
+      }
+    } catch (error) {
+      console.error("Failed to add product to wishlist:", error);
+      toast.error("Failed to add product to wishlist.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const scrollToTop = () => {
@@ -42,39 +96,8 @@ const ShopDetails = () => {
     setIsDrawerOpen(false);
   };
 
-  const cartItems = useSelector((state) => state.cart.items);
-
   const handleAddToCart = (product) => {
-    const productInCart = cartItems.find(
-      (item) => item.productID === product.productID
-    );
-
-    if (productInCart && productInCart.quantity >= 20) {
-      toast.error("Product limit reached", {
-        duration: 2000,
-        style: {
-          backgroundColor: "#ff4b4b",
-          color: "white",
-        },
-        iconTheme: {
-          primary: "#fff",
-          secondary: "#ff4b4b",
-        },
-      });
-    } else {
-      dispatch(addToCart(product));
-      toast.success(`Added to cart!`, {
-        duration: 2000,
-        style: {
-          backgroundColor: "#07bc0c",
-          color: "white",
-        },
-        iconTheme: {
-          primary: "#fff",
-          secondary: "#07bc0c",
-        },
-      });
-    }
+    navigate("/product", { state: { product } });
   };
 
   return (
@@ -118,18 +141,22 @@ const ShopDetails = () => {
             </div>
             <div className="shopDetailsProducts">
               <div className="shopDetailsProductsContainer">
-                {StoreData.slice(0, 6).map((product) => (
+                {product?.slice(0, 20).map((product) => (
                   <div className="sdProductContainer">
                     <div className="sdProductImages">
-                      <Link to="/Product" onClick={scrollToTop}>
+                      <Link
+                        to="/Product"
+                        state={{ product }}
+                        onClick={scrollToTop}
+                      >
                         <img
-                          src={product.frontImg}
-                          alt=""
+                          src={product.image}
+                          alt="Prduct Image"
                           className="sdProduct_front"
                         />
                         <img
-                          src={product.backImg}
-                          alt=""
+                          src={product.subImages[0]}
+                          alt="Sub Image"
                           className="sdProduct_back"
                         />
                       </Link>
@@ -147,30 +174,39 @@ const ShopDetails = () => {
                       <div className="sdProductCategoryWishlist">
                         <p>Dresses</p>
                         <FiHeart
-                          onClick={() => handleWishlistClick(product.productID)}
+                          onClick={() => handleWishlistClick(product)}
                           style={{
-                            color: wishList[product.productID]
-                              ? "red"
-                              : "#767676",
-                            cursor: "pointer",
+                            color: wishList[product._id] ? "red" : "#767676",
+                            opacity: loading ? 0.6 : 1,
+                            cursor: loading ? "not-allowed" : "pointer",
                           }}
                         />
                       </div>
                       <div className="sdProductNameInfo">
-                        <Link to="/product" onClick={scrollToTop}>
-                          <h5>{product.productName}</h5>
+                        <Link
+                          to="/product"
+                          state={{ product }}
+                          onClick={scrollToTop}
+                        >
+                          <h5>{product.name}</h5>
                         </Link>
 
                         <p>₹{product.productPrice}</p>
                         <div className="sdProductRatingReviews">
                           <div className="sdProductRatingStar">
-                            <FaStar color="#FEC78A" size={10} />
-                            <FaStar color="#FEC78A" size={10} />
-                            <FaStar color="#FEC78A" size={10} />
-                            <FaStar color="#FEC78A" size={10} />
-                            <FaStar color="#FEC78A" size={10} />
+                            {[...Array(5)].map((_, index) =>
+                              index < product.rating ? (
+                                <FaStar key={index} color="#FEC78A" size={10} />
+                              ) : (
+                                <FaRegStar
+                                  key={index}
+                                  color="#FEC78A"
+                                  size={10}
+                                />
+                              )
+                            )}
                           </div>
-                          <span>{product.productReviews}</span>
+                          <span>{product.rating}</span>
                         </div>
                       </div>
                     </div>

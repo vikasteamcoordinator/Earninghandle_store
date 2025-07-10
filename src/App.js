@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import "./App.css";
 
 import Home from "./Pages/Home";
@@ -25,6 +25,32 @@ import PrivacyPolicy from "./Components/Terms/Privacy";
 import ShippingPolicy from "./Components/Terms/Shipping";
 import Account from "./Components/Account/account";
 import ReturnPolicy from "./Components/Terms/Return";
+import { useDispatch, useSelector } from "react-redux";
+import { checkAuth } from "./redux/action/authAction";
+
+const ProtectedLayout = ({ children }) => {
+  const { isAuthenticated, authLoaded } = useSelector((state) => state.auth)
+  const location = useLocation()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(checkAuth())
+  }, [dispatch])
+
+  if (!authLoaded) {
+    return (
+      <div className="d-flex justify-content-center align-items-center min-vh-100">
+        <div className="loader" />
+      </div>
+    )
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/auth" state={{ from: location }} replace />
+  }
+
+  return children
+}
 
 const App = () => {
   return (
@@ -44,16 +70,16 @@ const App = () => {
           <Route path="/shop" element={<Shop />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
-          <Route path="/account" element={<Account />} />
           <Route path="/product" element={<ProductDetails />} />
           <Route path="/BlogDetails/:id" element={<BlogDetails />} />
           <Route path="/terms" element={<TermsConditions />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/shipping-policy" element={<ShippingPolicy />} />
           <Route path="/return-policy" element={<ReturnPolicy />} />
-          <Route path="/cart" element={<ShoppingCart />} />
-          <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/cart" element={<ProtectedLayout> <ShoppingCart /> </ProtectedLayout>} />
+          <Route path="/account" element={<ProtectedLayout> <Account /> </ProtectedLayout>} />
+          <Route path="/wishlist" element={<ProtectedLayout> <Wishlist /> </ProtectedLayout>} />
+          <Route path="/checkout" element={<ProtectedLayout> <Checkout /> </ProtectedLayout>} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

@@ -1,41 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-// import "./Checkout.css";
+import namer from "color-namer";
+import { allCart } from "../../api/service/product/getCart";
+import { delCart } from "../../api/service/product/delCart";
+import toast from "react-hot-toast";
 
-const Cart = ({ isLoggedIn }) => {
+const Cart = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [loading2, setLoading2] = useState(false);
+
+  const [cart, setCart] = useState([]);
+  const fetchCart = async () => {
+    try {
+      setLoading2(true);
+      const response2 = await allCart();
+      setCart(response2.cart?.products || []);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setCart([]);
+    } finally {
+      setLoading2(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCart();
+  }, []);
+
+  if (loading2) {
+    return (
+      <div className="d-flex justify-content-center align-items-center min-vh-100">
+        <div className="loader" />
+      </div>
+    );
+  }
+
+  const handleRemoveItem = async (item) => {
+    const data = {
+      color: item.color,
+      size: item.size,
+      quantity: item.quantity,
+    };
+    try {
+      setLoading(true);
+      const response = await delCart(item.product._id, data);
+      if (response?.success === true) {
+        toast.success("Product removed from cart");
+        fetchCart();
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      setLoading(false);
+    }
+  };
 
   const shippingCost = 50;
   const shippingType = "Standard Shipping";
 
-  const cartItems = [
-    {
-      id: 1,
-      product: {
-        _id: "prod1",
-        productName: "Product A",
-        price: 100,
-        color: "Red",
-        size: "M",
-      },
-      quantity: 2,
-    },
-    {
-      id: 2,
-      product: {
-        _id: "prod2",
-        productName: "Product B",
-        price: 200,
-        color: "Blue",
-        size: "L",
-      },
-      quantity: 1,
-    },
-  ];
-
-  const totalPrice = cartItems.reduce(
-    (acc, item) => acc + item.product.price * item.quantity,
+  const totalPrice = cart.reduce(
+    (acc, item) => acc + item.product.productPrice * item.quantity,
     0
   );
   const grandTotal = totalPrice + shippingCost;
@@ -79,15 +104,24 @@ const Cart = ({ isLoggedIn }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {cartItems.map((item) => (
-                      <tr key={item.id}>
-                        <td>{item.product.productName}</td>
-                        <td>{item.product.color}</td>
-                        <td>{item.product.size}</td>
+                    {cart?.map((item) => (
+                      <tr key={item._id}>
+                        <td>{item.product.name}</td>
+                        <td>{namer(item.color).basic[0].name}</td>
+                        <td>{item.size}</td>
                         <td>{item.quantity}</td>
-                        <td>₹{item.product.price}</td>
-                        <td>₹{item.product.price * item.quantity}</td>
-                        <td style={{cursor:"pointer"}}>X</td>
+                        <td>₹{item.product.productPrice}</td>
+                        <td>₹{item.product.productPrice * item.quantity}</td>
+                        <td
+                          style={{
+                            cursor: "pointer",
+                            opacity: loading ? 0.6 : 1,
+                            cursor: loading ? "not-allowed" : "pointer",
+                          }}
+                          onClick={() => handleRemoveItem(item)}
+                        >
+                          ✘
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -98,9 +132,18 @@ const Cart = ({ isLoggedIn }) => {
                 <h3 className="summary-title-ch">Your Order</h3>
                 <table className="table-ch">
                   <tbody>
-                    <tr><td>Subtotal</td><td>₹{totalPrice}</td></tr>
-                    <tr><td>{shippingType}</td><td>₹{shippingCost}</td></tr>
-                    <tr className="total-ch"><td>Total</td><td>₹{grandTotal}</td></tr>
+                    <tr>
+                      <td>Subtotal</td>
+                      <td>₹{totalPrice}</td>
+                    </tr>
+                    <tr>
+                      <td>{shippingType}</td>
+                      <td>₹{shippingCost}</td>
+                    </tr>
+                    <tr className="total-ch">
+                      <td>Total</td>
+                      <td>₹{grandTotal}</td>
+                    </tr>
                   </tbody>
                 </table>
                 <button className="btn-ch" onClick={handleSubmit}>

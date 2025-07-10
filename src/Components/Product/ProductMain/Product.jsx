@@ -3,29 +3,34 @@ import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../../Features/Cart/cartSlice";
-
-import product1 from "../../../Assets/ProductDetail/productdetail-1.jpg";
-import product2 from "../../../Assets/ProductDetail/productdetail-2.jpg";
-import product3 from "../../../Assets/ProductDetail/productdetail-3.jpg";
-import product4 from "../../../Assets/ProductDetail/productdetail-4.jpg";
 
 import { GoChevronLeft } from "react-icons/go";
 import { GoChevronRight } from "react-icons/go";
-import { FaStar } from "react-icons/fa";
+import { FaRegStar, FaStar } from "react-icons/fa";
 import { FiHeart } from "react-icons/fi";
 import { PiShareNetworkLight } from "react-icons/pi";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import toast from "react-hot-toast";
 
 import "./Product.css";
+import ColorNamer from "color-namer";
+import { addToWishlist } from "../../../api/service/product/addWish";
+import { addProductToCart } from "../../../api/service/product/addCart";
+import { checkAuth } from "../../../redux/action/authAction";
 
-const Product = () => {
-  // Product images Gallery
+const Product = ({ product }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState(false);
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+  const [isAddedToWish, setIsAddedToWish] = useState(false);
+  // dispatch(checkAuth());
 
-  const productImg = [product1, product2, product3, product4];
+  const productImg = [product.image, ...(product.subImages?.slice(0, 3) || [])];
+
   const [currentImg, setCurrentImg] = useState(0);
 
   const prevImg = () => {
@@ -35,8 +40,6 @@ const Product = () => {
   const nextImg = () => {
     setCurrentImg(currentImg === productImg.length - 1 ? 0 : currentImg + 1);
   };
-
-  // Product Quantity
 
   const [quantity, setQuantity] = useState(1);
 
@@ -57,76 +60,90 @@ const Product = () => {
     }
   };
 
-  // Product WishList
+  const [selectSize, setSelectSize] = useState("");
 
-  const [clicked, setClicked] = useState(false);
+  const [highlightedColor, setHighlightedColor] = useState("");
 
-  const handleWishClick = () => {
-    setClicked(!clicked);
+  const colors = product.colour || [];
+
+  const colorsName = colors.map((hex) => ColorNamer(hex).basic[0].name);
+
+  const handleAddToCart = async () => {
+    if (!isAuthenticated) {
+      toast.error("Please log in to add products to the cart.");
+      navigate("/auth");
+      return;
+    }
+
+    if (isAddedToCart) {
+      navigate("/cart");
+      return;
+    }
+
+    if (!highlightedColor) {
+      toast.error("Color selection is required.");
+      return;
+    }
+
+    if (!selectSize) {
+      toast.error("Size selection is required.");
+      return;
+    }
+
+    if (!quantity || quantity <= 0) {
+      toast.error("Valid quantity is required.");
+      return;
+    }
+
+    if (quantity > 10) {
+      toast.error("Max quantity is 10.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const data = { color: highlightedColor, size: selectSize, quantity };
+      const response = await addProductToCart(product._id, data);
+
+      if (response?.success === true) {
+        setIsAddedToCart(true);
+        toast.success("Product added to the cart successfully.");
+      }
+    } catch (error) {
+      toast.error("Failed to add product to cart.");
+      console.error("Failed to add product to cart:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // Product Sizes
+  const handleAddToWish = async () => {
+    if (!isAuthenticated) {
+      toast.error("Please log in to add products to the wishlist.");
+      navigate("/auth");
+      return;
+    }
 
-  const sizes = ["XS", "S", "M", "L", "XL"];
-  const sizesFullName = [
-    "Extra Small",
-    "Small",
-    "Medium",
-    "Large",
-    "Extra Large",
-  ];
-  const [selectSize, setSelectSize] = useState("S");
+    if (isAddedToWish) {
+      navigate("/wishlist");
+      return;
+    }
 
-  // Product Colors
+    setLoading(true);
 
-  const [highlightedColor, setHighlightedColor] = useState("#C8393D");
-  const colors = ["#222222", "#C8393D", "#E4E4E4"];
-  const colorsName = ["Black", "Red", "Grey"];
+    try {
+      const response = await addToWishlist(product._id);
 
-  // Product Detail to Redux
-
-  const dispatch = useDispatch();
-
-  const cartItems = useSelector((state) => state.cart.items);
-
-  const handleAddToCart = () => {
-    const productDetails = {
-      productID: 14,
-      productName: "Lightweight Puffer Jacket",
-      productPrice: 90,
-      frontImg: productImg[0],
-      productReviews: "8k+ reviews",
-    };
-
-    const productInCart = cartItems.find(
-      (item) => item.productID === productDetails.productID
-    );
-
-    if (productInCart && productInCart.quantity >= 20) {
-      toast.error("Product limit reached", {
-        duration: 2000,
-        style: {
-          backgroundColor: "#ff4b4b",
-          color: "white",
-        },
-        iconTheme: {
-          primary: "#fff",
-          secondary: "#ff4b4b",
-        },
-      });
-    } else {
-      dispatch(addToCart(productDetails));
-      toast.success(`Added to cart!`, {
-        duration: 2000,
-        style: {
-          backgroundColor: "#07bc0c",
-          color: "white",
-        },
-        iconTheme: {
-          primary: "#fff",
-          secondary: "#07bc0c",
-        },
-      });
+      if (response?.success === true) {
+        toast.success("Product added to the wishlist successfully.");
+        setIsAddedToWish(true);
+      }
+    } catch (error) {
+      console.error("Failed to add product to wishlist:", error);
+      toast.error("Failed to add product to wishlist.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -136,13 +153,22 @@ const Product = () => {
         <div className="productShowCase">
           <div className="productGallery">
             <div className="productThumb">
-              <img src={product1} onClick={() => setCurrentImg(0)} alt="" />
-              <img src={product2} onClick={() => setCurrentImg(1)} alt="" />
-              <img src={product3} onClick={() => setCurrentImg(2)} alt="" />
-              <img src={product4} onClick={() => setCurrentImg(3)} alt="" />
+              <img
+                src={product.image}
+                onClick={() => setCurrentImg(0)}
+                alt="Product Image"
+              />
+              {product.subImages?.map((img, index) => (
+                <img
+                  key={index}
+                  src={img}
+                  alt={`Sub Image ${index + 1}`}
+                  onClick={() => setCurrentImg(index + 1)}
+                />
+              ))}
             </div>
             <div className="productFullImg">
-              <img src={productImg[currentImg]} alt="" />
+              <img src={productImg[currentImg]} alt="Product Image" />
               <div className="buttonsGroup">
                 <button onClick={prevImg} className="directionBtn">
                   <GoChevronLeft size={18} />
@@ -161,49 +187,48 @@ const Product = () => {
               </div>
             </div>
             <div className="productName">
-              <h1>Lightweight Puffer Jacket With a Hood</h1>
+              <h1>{product?.name}</h1>
             </div>
             <div className="productRating">
-              <FaStar color="#FEC78A" size={10} />
-              <FaStar color="#FEC78A" size={10} />
-              <FaStar color="#FEC78A" size={10} />
-              <FaStar color="#FEC78A" size={10} />
-              <FaStar color="#FEC78A" size={10} />
+              {[...Array(5)].map((_, index) =>
+                index < product.rating ? (
+                  <FaStar key={index} color="#FEC78A" size={10} />
+                ) : (
+                  <FaRegStar key={index} color="#FEC78A" size={10} />
+                )
+              )}
             </div>
             <div className="productPrice">
-              <h3>$90</h3>
+              <h3>
+                <span
+                  style={{
+                    textDecoration: "line-through",
+                    color: "gray",
+                    marginRight: "10px",
+                  }}
+                >
+                  ₹{product?.mrp}
+                </span>
+                <span style={{ color: "green" }}>₹{product?.productPrice}</span>
+              </h3>
             </div>
             <div className="productDescription">
-              <p>
-                Phasellus sed volutpat orci. Fusce eget lore mauris vehicula
-                elementum gravida nec dui. Aenean aliquam varius ipsum, non
-                ultricies tellus sodales eu. Donec dignissim viverra nunc, ut
-                aliquet magna posuere eget.
-              </p>
+              <p>{product?.productDescription}</p>
             </div>
             <div className="productSizeColor">
               <div className="productSize">
                 <p>Sizes</p>
                 <div className="sizeBtn">
-                  {sizes.map((size, index) => (
-                    <Tooltip
-                      key={size}
-                      title={sizesFullName[index]}
-                      placement="top"
-                      TransitionComponent={Zoom}
-                      enterTouchDelay={0}
-                      arrow
+                  {product?.productSizes?.map((size, index) => (
+                    <button
+                      style={{
+                        backgroundColor: selectSize === size ? "#000" : "#fff",
+                        color: selectSize === size ? "#fff" : "#000",
+                      }}
+                      onClick={() => setSelectSize(size)}
                     >
-                      <button
-                        style={{
-                          backgroundColor: selectSize === size ? "#000" : "#fff",
-                          color: selectSize === size ? "#fff" : "#000",
-                        }}
-                        onClick={() => setSelectSize(size)}
-                      >
-                        {size}
-                      </button>
-                    </Tooltip>
+                      {size}
+                    </button>
                   ))}
                 </div>
               </div>
@@ -251,30 +276,71 @@ const Product = () => {
                 <button onClick={increment}>+</button>
               </div>
               <div className="productCartBtn">
-                <button onClick={handleAddToCart}>Add to Cart</button>
+                <button
+                  onClick={handleAddToCart}
+                  disabled={loading}
+                  style={{
+                    opacity: loading ? 0.6 : 1,
+                    cursor: loading ? "not-allowed" : "pointer",
+                  }}
+                >
+                  {isAddedToCart ? "Go to Cart" : "Add to Cart"}
+                </button>
               </div>
             </div>
             <div className="productWishShare">
               <div className="productWishList">
-                <button onClick={handleWishClick}>
-                  <FiHeart color={clicked ? "red" : ""} size={17} />
-                  <p>Add to Wishlist</p>
+                <button
+                  onClick={handleAddToWish}
+                  disabled={loading}
+                  style={{
+                    opacity: loading ? 0.6 : 1,
+                    cursor: loading ? "not-allowed" : "pointer",
+                  }}
+                >
+                  <FiHeart color={isAddedToWish ? "red" : ""} size={17} />
+                  <p>{isAddedToWish ? "See Wishlist" : "Wishlist"}</p>
                 </button>
               </div>
-              <div className="productShare">
+              <div
+                className="productShare"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  const url = window.location.href;
+                  navigator.clipboard
+                    .writeText(url)
+                    .then(() => {
+                      toast.success("Link copied!");
+                    })
+                    .catch((err) => {
+                      console.error("Failed to copy: ", err);
+                    });
+                }}
+              >
                 <PiShareNetworkLight size={22} />
                 <p>Share</p>
               </div>
             </div>
             <div className="productTags">
               <p>
-                <span>SKU: </span>N/A
+                <span>SKU: </span>
+                {product._id || "N/A"}
               </p>
               <p>
-                <span>CATEGORIES: </span>Casual & Urban Wear, Jackets, Men
-              </p>
-              <p>
-                <span>TAGS: </span>biker, black, bomber, leather
+                <span>CATEGORIES: </span>
+                {product?.categories.map((category, index) => (
+                  <span
+                    key={index}
+                    style={{
+                      marginRight: "10px",
+                      color: "#000",
+                      fontWeight: "400",
+                    }}
+                  >
+                    {category.name.toUpperCase()}
+                    {index !== category.length - 1 ? " | " : ""}
+                  </span>
+                ))}
               </p>
             </div>
           </div>

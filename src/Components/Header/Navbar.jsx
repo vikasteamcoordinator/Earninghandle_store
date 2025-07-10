@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { useEffect, useRef } from "react";
 import "./Navbar.css";
 
-import { useSelector } from "react-redux";
-
 import logo from "../../Assets/earning.png";
 import { Link } from "react-router-dom";
 
@@ -20,9 +18,10 @@ import { GiExitDoor } from "react-icons/gi";
 
 import Badge from "@mui/material/Badge";
 import { Tooltip } from "@mui/material";
+import { allCart } from "../../api/service/product/getCart";
+import { allWish } from "../../api/service/product/getWish";
 
 const Navbar = () => {
-  const cart = useSelector((state) => state.cart);
   const [query, setQuery] = useState("");
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [showSearch, setShowSearch] = useState(false);
@@ -54,7 +53,7 @@ const Navbar = () => {
   const handleOptionClick = (option) => {
     setQuery(option);
     setFilteredOptions([]);
-    toggleMobileMenu();
+    // toggleMobileMenu();
   };
 
   const toggleSearch = () => {
@@ -111,6 +110,26 @@ const Navbar = () => {
       behavior: "smooth",
     });
   };
+
+    const [product, setproduct] = useState("");
+  const [wish, setWish] = useState("");
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        // if (!isLoggedIn) return;
+        const response = await allCart();
+        const response2 = await allWish();
+        if (response?.success === true) {
+          setproduct(response.cart.products.length);
+        }
+        setWish(response2.wishlist?.products?.length ?? 0);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchCart();
+  }, []);
 
   return (
     <>
@@ -207,7 +226,7 @@ const Navbar = () => {
           <Tooltip title="Cart" arrow>
             <Link to="/cart" onClick={scrollToTop}>
               <Badge
-                badgeContent={cart.items.length === 0 ? "0" : cart.items.length}
+                badgeContent={product || '0'}
                 sx={{
                   "& .MuiBadge-badge": {
                     backgroundColor: "#FBE7B5",
@@ -226,7 +245,7 @@ const Navbar = () => {
           <Tooltip title="Wishlist" arrow>
             <Link to="/wishlist" onClick={scrollToTop}>
               <Badge
-                badgeContent={cart.items.length === 0 ? "0" : cart.items.length}
+                badgeContent={wish || '0'}
                 sx={{
                   "& .MuiBadge-badge": {
                     backgroundColor: "#FBE7B5",
@@ -265,7 +284,7 @@ const Navbar = () => {
           </div>
           <Link to="/cart">
             <Badge
-              badgeContent={cart.items.length === 0 ? "0" : cart.items.length}
+              badgeContent='0'
               sx={{
                 "& .MuiBadge-badge": {
                   backgroundColor: "#FBE7B5",

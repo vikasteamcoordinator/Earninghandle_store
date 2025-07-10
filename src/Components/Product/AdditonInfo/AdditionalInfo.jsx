@@ -6,8 +6,9 @@ import user2 from "../../../Assets/Users/user2.jpeg";
 
 import { FaStar } from "react-icons/fa";
 import Rating from "@mui/material/Rating";
+import ColorNamer from "color-namer";
 
-const AdditionalInfo = () => {
+const AdditionalInfo = ({ product }) => {
   const [activeTab, setActiveTab] = useState("aiTab1");
 
   const handleTabClick = (tab) => {
@@ -46,23 +47,10 @@ const AdditionalInfo = () => {
             {activeTab === "aiTab1" && (
               <div className="aiTabDescription">
                 <div className="descriptionPara">
-                  <h3>Sed do eiusmod tempor incididunt ut labore</h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum. Sed ut perspiciatis
-                    unde omnis iste natus error sit voluptatem accusantium
-                    doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
-                    illo inventore veritatis et quasi architecto beatae vitae
-                    dicta sunt explicabo.
-                  </p>
+                  <h3>Everything you need to know about this product.</h3>
+                  <p>{product?.productDescription}</p>
                 </div>
-                <div className="descriptionParaGrid">
+                {/* <div className="descriptionParaGrid">
                   <div className="descriptionPara">
                     <h3>Why choose product?</h3>
                     <p>
@@ -87,13 +75,7 @@ const AdditionalInfo = () => {
                       </ol>
                     </p>
                   </div>
-                </div>
-                <div className="descriptionPara">
-                  <h3>Lining</h3>
-                  <p style={{ marginTop: "-10px" }}>
-                    100% Polyester, Main: 100% Polyester.
-                  </p>
-                </div>
+                </div> */}
               </div>
             )}
 
@@ -102,24 +84,30 @@ const AdditionalInfo = () => {
             {activeTab === "aiTab2" && (
               <div className="aiTabAdditionalInfo">
                 <div className="additionalInfoContainer">
-                  <h6>Weight</h6>
-                  <p> 1.25 kg</p>
-                </div>
-                <div className="additionalInfoContainer">
-                  <h6>Dimensions</h6>
-                  <p> 90 x 60 x 90 cm</p>
-                </div>
-                <div className="additionalInfoContainer">
                   <h6>Size</h6>
-                  <p> XS, S, M, L, XL</p>
+                  <p>
+                    {product.productSizes?.map((sz, index) => (
+                      <span key={index}>
+                        {sz}
+                        {index !== product.productSizes.length - 1 ? ", " : ""}
+                      </span>
+                    ))}
+                  </p>
                 </div>
+
                 <div className="additionalInfoContainer">
                   <h6>Color</h6>
-                  <p> Black, Orange, White</p>
-                </div>
-                <div className="additionalInfoContainer">
-                  <h6>Storage</h6>
-                  <p> Relaxed fit shirt-style dress with a rugged</p>
+                  <p>
+                    {product.colour?.map((hex, index) => {
+                      const name = ColorNamer(hex).basic[0].name;
+                      return (
+                        <span key={index}>
+                          {name}
+                          {index !== product.colour.length - 1 ? ", " : ""}
+                        </span>
+                      );
+                    })}
+                  </p>
                 </div>
               </div>
             )}

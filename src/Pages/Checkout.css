@@ -74,7 +74,7 @@
 
 .product-pane-ca {
   width: 100%;
-  max-width: 500px;
+  max-width: 900px;
   overflow-x: scroll;
   scroll-behavior: smooth;
   scrollbar-width: none;
